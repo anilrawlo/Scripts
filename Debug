@@ -1,0 +1,28 @@
+
+
+#!/bin/bash
+
+log4j_file="/path/to/your/log4j.properties"
+
+enable_debug() {
+    sed -i 's/log4j.rootLogger=.*/log4j.rootLogger=DEBUG, console, file/' "$log4j_file"
+    echo "Debug mode enabled in $log4j_file"
+}
+
+disable_debug() {
+    sed -i 's/log4j.rootLogger=.*/log4j.rootLogger=INFO, console, file/' "$log4j_file"
+    echo "Debug mode disabled in $log4j_file"
+}
+
+case "$1" in
+    enable)
+        enable_debug
+        ;;
+    disable)
+        disable_debug
+        ;;
+    *)
+        echo "Usage: $0 {enable|disable}"
+        exit 1
+        ;;
+esac
