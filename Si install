@@ -1,0 +1,16 @@
+
+
+#!/bin/bash
+
+# Define the second input filename
+second_input="installer.properties"
+
+# Execute the Java command with expect to handle the input prompts
+expect -c "
+spawn java -cp $ORA_LIB:si-installer.jar -DCreatemodify=TRUE com.tcs.mswitch.installer.Install
+expect \"Enter Installation mode:\"
+send \"1\n\"
+expect \"Enter property file path:\"
+send \"$second_input\n\"
+expect eof
+"
