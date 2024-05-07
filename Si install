@@ -14,3 +14,16 @@ expect \"Enter property file path:\"
 send \"$second_input\n\"
 expect eof
 "
+
+---
+- name: Execute Java program with Ansible
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Run Java program
+      expect:
+        command: java -cp {{ ORA_LIB }}:si-installer.jar -DCreatemodify=TRUE com.tcs.mswitch.installer.Install
+        responses:
+          Enter Installation mode: "1\n"
+          Enter property file path: "installer.properties\n"
+
