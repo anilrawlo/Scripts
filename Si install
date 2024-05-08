@@ -27,3 +27,30 @@ expect eof
           Enter Installation mode: "1\n"
           Enter property file path: "installer.properties\n"
 
+
+
+
+---
+- name: Execute first Java program
+  expect:
+    command: java -cp $ORA_LIB:si-installer.jar -DCreatemodify=TRUE com.tcs.mswitch.installer.Install
+    responses:
+      Enter Installation mode: "1\n"
+      Enter property file path: "installer.properties\n"
+  register: first_program_result
+
+- name: Wait for the completion of the first Java program
+  async_status:
+    jid: "{{ first_program_result.ansible_job_id }}"
+  register: async_status_result
+  until: async_status_result.finished
+  retries: 30  # Retry every 10 seconds for a maximum of 5 minutes
+  delay: 10  # Delay between retries
+
+- name: Execute second Java program
+  expect:
+    command: java -cp /path/to/second_program.jar com.example.SecondProgram
+    responses:
+      Enter input: "input_value\n"
+  when: async_status_result.finished and first_program_result.rc == 0
+
