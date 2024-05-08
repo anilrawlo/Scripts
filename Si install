@@ -56,3 +56,39 @@ expect eof
   environment:
     SECOND_PROGRAM_ENV_VAR: "{{ lookup('env', 'SECOND_PROGRAM_ENV_VAR') | default('') }}"  # Use the value of $SECOND_PROGRAM_ENV_VAR environment variable or default to empty string
   when: async_status_result.finished and first_program_result.rc == 0
+
+
+---
+- name: Perform deployment tasks
+  hosts: your_target_hosts
+  tasks:
+    - name: Rename existing SI folder to backup
+      ansible.builtin.command:
+        cmd: mv /opt/bancs/SI /opt/bancs/SI_backup
+      ignore_errors: yes  # Ignore errors if the folder does not exist or cannot be renamed
+
+    - name: Create new SI folder for installation
+      ansible.builtin.file:
+        path: /opt/bancs/SI
+        state: directory
+        mode: "0755"  # Set directory permission to 755
+
+    - name: Rename repoinstaller.jar to backup
+      ansible.builtin.command:
+        cmd: mv /opt/jboss/tarhome/SI/repoinstaller.jar /opt/jboss/tarhome/SI/backup
+      ignore_errors: yes  # Ignore errors if the file does not exist or cannot be renamed
+
+    - name: Backup /opt/bancs/SI folder
+      ansible.builtin.command:
+        cmd: cp -r /opt/bancs/SI /opt/deployment_backup/SI_backup
+
+    - name: Copy new repoinstaller.jar to target server
+      ansible.builtin.copy:
+        src: /path/to/repoinstaller.jar  # Path to the new repoinstaller.jar on the Ansible control node
+        dest: /opt/jboss/tarhome/SI
+
+    - name: Remove everything from /opt/bancs/SI folder
+      ansible.builtin.file:
+        path: /opt/bancs/SI/*
+        state: absent
+      ignore_errors: yes  # Ignore errors if there are any during file removal
