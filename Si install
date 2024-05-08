@@ -37,7 +37,8 @@ expect eof
     responses:
       Enter Installation mode: "1\n"
       Enter property file path: "installer.properties\n"
-  register: first_program_result
+  environment:
+    ORA_LIB: "{{ lookup('env', 'ORA_LIB') | default('') }}"  # Use the value of $ORA_LIB environment variable or default to empty string
 
 - name: Wait for the completion of the first Java program
   async_status:
@@ -52,5 +53,6 @@ expect eof
     command: java -cp /path/to/second_program.jar com.example.SecondProgram
     responses:
       Enter input: "input_value\n"
+  environment:
+    SECOND_PROGRAM_ENV_VAR: "{{ lookup('env', 'SECOND_PROGRAM_ENV_VAR') | default('') }}"  # Use the value of $SECOND_PROGRAM_ENV_VAR environment variable or default to empty string
   when: async_status_result.finished and first_program_result.rc == 0
-
