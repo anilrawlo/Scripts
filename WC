@@ -1,38 +1,33 @@
 
 
 ---
-- name: Deploy JBoss Webchannel
-  hosts: your_target_hosts
-  become: yes
-  
-  tasks:
-    - name: Take backup of installer and deployel directory
-      command: rsync -avz /opt/jboss/Webchannel/installer /opt/jboss/Webchannel/deployel /path/to/backup/location
-    
-    - name: Copy abc.tar file to /opt/jboss/Webchannel
-      copy:
-        src: /path/to/abc.tar
-        dest: /opt/jboss/Webchannel/
-    
-    - name: Rename existing installer folder
-      command: mv /opt/jboss/Webchannel/installer /opt/jboss/Webchannel/installer_old
-      args:
-        creates: /opt/jboss/Webchannel/installer_old
-    
-    - name: Copy install.sh to /opt/jboss/Webchannel/installer
-      copy:
-        src: /path/to/install.sh
-        dest: /opt/jboss/Webchannel/installer/install.sh
-    
-    - name: Execute install.sh
-      command: /opt/jboss/Webchannel/installer/install.sh
-      async: 300  # Adjust the timeout according to your script's expected execution time
-      poll: 0
-    
-    - name: Wait for script execution to complete
-      async_status:
-        jid: "{{ ansible_job_id }}"
-      register: job_result
-      until: job_result.finished
-      retries: 30  # Adjust the number of retries based on the expected script execution time and timeout
-      delay: 10   # Adjust the delay between retries if needed
+- name: Take backup of installer and deployel directory
+  command: rsync -avz /opt/jboss/Webchannel/installer /opt/jboss/Webchannel/deployel /path/to/backup/location
+
+- name: Copy tar file from Ansible server to /opt/jboss/Webchannel
+  copy:
+    src: "{{ tar_file_name }}"
+    dest: /opt/jboss/Webchannel/
+
+- name: Rename existing installer folder
+  command: mv /opt/jboss/Webchannel/installer /opt/jboss/Webchannel/installer_old
+  args:
+    creates: /opt/jboss/Webchannel/installer_old
+
+- name: Copy install.sh to /opt/jboss/Webchannel/installer
+  copy:
+    src: files/install.sh
+    dest: /opt/jboss/Webchannel/installer/install.sh
+
+- name: Execute install.sh
+  command: /opt/jboss/Webchannel/installer/install.sh
+  async: 300
+  poll: 0
+
+- name: Wait for script execution to complete
+  async_status:
+    jid: "{{ ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 30
+  delay: 10
