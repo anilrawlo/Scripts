@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    
+    parameters {
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Select environment to run SQL*Plus query')
+    }
+    
+    stages {
+        stage('Execute SQL*Plus Query') {
+            steps {
+                script {
+                    // Determine the credentials ID based on the selected environment
+                    def credentialsId
+                    switch (params.ENVIRONMENT) {
+                        case 'dev':
+                            credentialsId = 'DB_CREDENTIALS_DEV'
+                            break
+                        case 'qa':
+                            credentialsId = 'DB_CREDENTIALS_QA'
+                            break
+                        case 'prod':
+                            credentialsId = 'DB_CREDENTIALS_PROD'
+                            break
+                        default:
+                            error "Unsupported environment selected: ${params.ENVIRONMENT}"
+                    }
+                    
+                    // Retrieve credentials from Jenkins
+                    withCredentials([usernamePassword(credentialsId: credentialsId, passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USER')]) {
+                        // SQL*Plus command to execute your query
+                        def sqlPlusCommand = "echo \"${DB_USER}/${DB_PASSWORD}@${params.DB_SERVER_IP} as sysdba\" | sqlplus -S @your_query_file.sql"
+                        
+                        // Execute the SQL*Plus command
+                        def sqlPlusOutput = sh(script: sqlPlusCommand, returnStdout: true).trim()
+                        
+                        // Print SQL*Plus output
+                        echo "SQL*Plus Output: ${sqlPlusOutput}"
+                    }
+                }
+            }
+        }
+    }
+}
