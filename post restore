@@ -10,20 +10,24 @@ pipeline {
             steps {
                 script {
                     def envConfig = [
-                        'int'   : [server: '10.0.0.1', creds: 'int-ssh-credentials-id'],
-                        'qa'    : [server: '10.0.0.2', creds: 'qa-ssh-credentials-id'],
-                        'stress': [server: '10.0.0.3', creds: 'stress-ssh-credentials-id'],
-                        'prod'  : [server: '10.0.0.4', creds: 'prod-ssh-credentials-id']
+                        'int'   : [server: '10.0.0.1', sshCreds: 'int-ssh-credentials-id', dbCreds: 'int-db-credentials-id'],
+                        'qa'    : [server: '10.0.0.2', sshCreds: 'qa-ssh-credentials-id', dbCreds: 'qa-db-credentials-id'],
+                        'stress': [server: '10.0.0.3', sshCreds: 'stress-ssh-credentials-id', dbCreds: 'stress-db-credentials-id'],
+                        'prod'  : [server: '10.0.0.4', sshCreds: 'prod-ssh-credentials-id', dbCreds: 'prod-db-credentials-id']
                     ]
 
                     def config = envConfig[params.ENVIRONMENT]
 
-                    sshagent(credentials: [config.creds]) {
-                        sh """
-                            ssh -o StrictHostKeyChecking=no user@${config.server} 'sqlplus -s username/password@database < /opt/jboss/db_scripts/${params.ENVIRONMENT}/script1.sql; sleep 5'
-                            ssh -o StrictHostKeyChecking=no user@${config.server} 'sqlplus -s username/password@database < /opt/jboss/db_scripts/${params.ENVIRONMENT}/script2.sql; sleep 5'
-                            ssh -o StrictHostKeyChecking=no user@${config.server} 'sqlplus -s username/password@database < /opt/jboss/db_scripts/${params.ENVIRONMENT}/script3.sql'
-                        """
+                    withCredentials([usernamePassword(credentialsId: config.dbCreds, usernameVariable: 'DB_USER', passwordVariable: 'DB_PASS')]) {
+                        sshagent(credentials: [config.sshCreds]) {
+                            sh """
+                                ssh -o StrictHostKeyChecking=no user@${config.server} '
+                                    sqlplus -s $DB_USER/$DB_PASS@database < /opt/jboss/db_scripts/sql1.sql; sleep 5
+                                    sqlplus -s $DB_USER/$DB_PASS@database < /opt/jboss/db_scripts/sql2.sql; sleep 5
+                                    sqlplus -s $DB_USER/$DB_PASS@database < /opt/jboss/db_scripts/sql3.sql
+                                '
+                            """
+                        }
                     }
                 }
             }
