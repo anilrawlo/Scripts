@@ -1,40 +1,30 @@
 pipeline {
     agent any
-    
+
     parameters {
-        choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Select environment to run SQL*Plus query')
+        choice(name: 'ENVIRONMENT', choices: ['int', 'qa', 'stress', 'prod'], description: 'Choose the environment to run the scripts')
     }
-    
+
     stages {
-        stage('Execute SQL*Plus Query') {
+        stage('Run SQL Scripts') {
             steps {
                 script {
-                    // Determine the credentials ID based on the selected environment
-                    def credentialsId
-                    switch (params.ENVIRONMENT) {
-                        case 'dev':
-                            credentialsId = 'DB_CREDENTIALS_DEV'
-                            break
-                        case 'qa':
-                            credentialsId = 'DB_CREDENTIALS_QA'
-                            break
-                        case 'prod':
-                            credentialsId = 'DB_CREDENTIALS_PROD'
-                            break
-                        default:
-                            error "Unsupported environment selected: ${params.ENVIRONMENT}"
-                    }
+                    def envConfig = [
+                        'int'   : [server: '10.0.0.1', creds: 'int-ssh-credentials-id'],   // Replace with actual IP and SSH credentials ID
+                        'qa'    : [server: '10.0.0.2', creds: 'qa-ssh-credentials-id'],    // Replace with actual IP and SSH credentials ID
+                        'stress': [server: '10.0.0.3', creds: 'stress-ssh-credentials-id'], // Replace with actual IP and SSH credentials ID
+                        'prod'  : [server: '10.0.0.4', creds: 'prod-ssh-credentials-id']    // Replace with actual IP and SSH credentials ID
+                    ]
+
+                    def config = envConfig[params.ENVIRONMENT]
                     
-                    // Retrieve credentials from Jenkins
-                    withCredentials([usernamePassword(credentialsId: credentialsId, passwordVariable: 'DB_PASSWORD', usernameVariable: 'DB_USER')]) {
-                        // SQL*Plus command to execute your query
-                        def sqlPlusCommand = "echo \"${DB_USER}/${DB_PASSWORD}@${params.DB_SERVER_IP} as sysdba\" | sqlplus -S @your_query_file.sql"
-                        
-                        // Execute the SQL*Plus command
-                        def sqlPlusOutput = sh(script: sqlPlusCommand, returnStdout: true).trim()
-                        
-                        // Print SQL*Plus output
-                        echo "SQL*Plus Output: ${sqlPlusOutput}"
+                    sshagent(credentials: [config.creds]) {
+                        sh """
+                            ssh -o StrictHostKeyChecking=no user@${config.server} 'for file in /opt/jboss/db_scripts/${params.ENVIRONMENT}/*.sql; do
+                                sqlplus -s username/password@database < "\$file"
+                                sleep 5
+                            done'
+                        """
                     }
                 }
             }
