@@ -10,10 +10,10 @@ pipeline {
             steps {
                 script {
                     def envConfig = [
-                        'int'   : [server: '10.0.0.1', sshCreds: 'int-ssh-credentials-id', dbCreds: 'int-db-credentials-id'],
-                        'qa'    : [server: '10.0.0.2', sshCreds: 'qa-ssh-credentials-id', dbCreds: 'qa-db-credentials-id'],
-                        'stress': [server: '10.0.0.3', sshCreds: 'stress-ssh-credentials-id', dbCreds: 'stress-db-credentials-id'],
-                        'prod'  : [server: '10.0.0.4', sshCreds: 'prod-ssh-credentials-id', dbCreds: 'prod-db-credentials-id']
+                        'int'   : [server: '10.0.0.1', sshCreds: 'int-ssh-credentials-id', dbCreds: 'int-db-credentials-id', dbName: 'int_db'],
+                        'qa'    : [server: '10.0.0.2', sshCreds: 'qa-ssh-credentials-id', dbCreds: 'qa-db-credentials-id', dbName: 'qa_db'],
+                        'stress': [server: '10.0.0.3', sshCreds: 'stress-ssh-credentials-id', dbCreds: 'stress-db-credentials-id', dbName: 'stress_db'],
+                        'prod'  : [server: '10.0.0.4', sshCreds: 'prod-ssh-credentials-id', dbCreds: 'prod-db-credentials-id', dbName: 'prod_db']
                     ]
 
                     def config = envConfig[params.ENVIRONMENT]
@@ -22,15 +22,21 @@ pipeline {
                         sshagent(credentials: [config.sshCreds]) {
                             sh """
                                 ssh -o StrictHostKeyChecking=no user@${config.server} '
-                                    sqlplus -s $DB_USER/$DB_PASS@database < /opt/jboss/db_scripts/sql1.sql; sleep 5
-                                    sqlplus -s $DB_USER/$DB_PASS@database < /opt/jboss/db_scripts/sql2.sql; sleep 5
-                                    sqlplus -s $DB_USER/$DB_PASS@database < /opt/jboss/db_scripts/sql3.sql
+                                    sqlplus -s $DB_USER/$DB_PASS@${config.dbName} @/opt/jboss/db_scripts/sql1.sql; sleep 5
+                                    sqlplus -s $DB_USER/$DB_PASS@${config.dbName} @/opt/jboss/db_scripts/sql2.sql; sleep 5
+                                    sqlplus -s $DB_USER/$DB_PASS@${config.dbName} @/opt/jboss/db_scripts/sql3.sql
                                 '
                             """
                         }
                     }
                 }
             }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Pipeline execution completed'
         }
     }
 }
