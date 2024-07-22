@@ -1,0 +1,63 @@
+The error `No such property: SQLPLUS_CMD for class: groovy.lang.Binding` indicates that the environment variable `SQLPLUS_CMD` is not being recognized within the `ssh` command block.
+
+Here’s a revised approach that directly executes the SQL command using the environment variables without the need to define an intermediary variable like `SQLPLUS_CMD`:
+
+### Revised Pipeline Script
+
+```groovy
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'ENVIRONMENT', choices: ['int', 'qa', 'stress', 'prod'], description: 'Choose the environment to run the script')
+    }
+
+    stages {
+        stage('Run SQL Script') {
+            steps {
+                script {
+                    def envConfig = [
+                        'int'   : [server: '10.0.0.1', sshCreds: 'int-ssh-credentials-id', dbCreds: 'int-db-credentials-id', dbName: 'int_db'],
+                        'qa'    : [server: '10.0.0.2', sshCreds: 'qa-ssh-credentials-id', dbCreds: 'qa-db-credentials-id', dbName: 'qa_db'],
+                        'stress': [server: '10.0.0.3', sshCreds: 'stress-ssh-credentials-id', dbCreds: 'stress-db-credentials-id', dbName: 'stress_db'],
+                        'prod'  : [server: '10.0.0.4', sshCreds: 'prod-ssh-credentials-id', dbCreds: 'prod-db-credentials-id', dbName: 'prod_db']
+                    ]
+
+                    def config = envConfig[params.ENVIRONMENT]
+
+                    withCredentials([usernamePassword(credentialsId: config.dbCreds, usernameVariable: 'DB_USER', passwordVariable: 'DB_PASS')]) {
+                        withCredentials([sshUserPrivateKey(credentialsId: config.sshCreds, keyFileVariable: 'SSH_KEY')]) {
+                            sh """
+                                ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${config.server} << EOF
+                                    sqlplus -s $DB_USER/$DB_PASS@${config.dbName} @/opt/jboss/db_scripts/your_script.sql
+                                EOF
+                            """
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Pipeline execution completed'
+        }
+    }
+}
+```
+
+### Explanation
+
+1. **Remove Intermediate Variable**:
+   - Directly invoke `sqlplus` within the SSH command block. This avoids using an intermediate environment variable and simplifies the command.
+
+2. **Here Document (`<< EOF ... EOF`)**:
+   - This construct allows you to pass multiple lines of commands over SSH. It includes your `sqlplus` command and script execution.
+
+3. **Environment Variables**:
+   - The variables `$DB_USER`, `$DB_PASS`, and `$DB_NAME` are used directly in the `sqlplus` command, avoiding the need for an intermediary variable.
+
+### Summary
+
+This updated script should resolve the issue with the `SQLPLUS_CMD` property not being found by directly using the environment variables in the SSH command block. Ensure that your SSH and database credentials are properly configured in Jenkins for the pipeline to run successfully.
