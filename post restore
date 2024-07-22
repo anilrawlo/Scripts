@@ -10,20 +10,19 @@ pipeline {
             steps {
                 script {
                     def envConfig = [
-                        'int'   : [server: '10.0.0.1', creds: 'int-ssh-credentials-id'],   // Replace with actual IP and SSH credentials ID
-                        'qa'    : [server: '10.0.0.2', creds: 'qa-ssh-credentials-id'],    // Replace with actual IP and SSH credentials ID
-                        'stress': [server: '10.0.0.3', creds: 'stress-ssh-credentials-id'], // Replace with actual IP and SSH credentials ID
-                        'prod'  : [server: '10.0.0.4', creds: 'prod-ssh-credentials-id']    // Replace with actual IP and SSH credentials ID
+                        'int'   : [server: '10.0.0.1', creds: 'int-ssh-credentials-id'],
+                        'qa'    : [server: '10.0.0.2', creds: 'qa-ssh-credentials-id'],
+                        'stress': [server: '10.0.0.3', creds: 'stress-ssh-credentials-id'],
+                        'prod'  : [server: '10.0.0.4', creds: 'prod-ssh-credentials-id']
                     ]
 
                     def config = envConfig[params.ENVIRONMENT]
-                    
+
                     sshagent(credentials: [config.creds]) {
                         sh """
-                            ssh -o StrictHostKeyChecking=no user@${config.server} 'for file in /opt/jboss/db_scripts/${params.ENVIRONMENT}/*.sql; do
-                                sqlplus -s username/password@database < "\$file"
-                                sleep 5
-                            done'
+                            ssh -o StrictHostKeyChecking=no user@${config.server} 'sqlplus -s username/password@database < /opt/jboss/db_scripts/${params.ENVIRONMENT}/script1.sql; sleep 5'
+                            ssh -o StrictHostKeyChecking=no user@${config.server} 'sqlplus -s username/password@database < /opt/jboss/db_scripts/${params.ENVIRONMENT}/script2.sql; sleep 5'
+                            ssh -o StrictHostKeyChecking=no user@${config.server} 'sqlplus -s username/password@database < /opt/jboss/db_scripts/${params.ENVIRONMENT}/script3.sql'
                         """
                     }
                 }
