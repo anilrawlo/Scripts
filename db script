@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    parameters {
+        // Choice parameter to select which SQL file to execute
+        choice(name: 'SQL_FILE', choices: listSqlFiles(), description: 'Select the SQL file to execute')
+    }
+
+    environment {
+        // Oracle environment variables - these might differ based on your setup
+        ORACLE_HOME = '/path/to/oracle/home'
+        PATH = "${env.ORACLE_HOME}/bin:${env.PATH}"
+        TNS_ADMIN = '/path/to/tns_admin' // Optional if you use TNS
+        ORACLE_SID = 'your_oracle_sid'  // Optional if you use SID
+    }
+
+    stages {
+        stage('Execute SQL with SQL*Plus') {
+            steps {
+                script {
+                    // Assuming the SQL files are on the server in a specific directory
+                    def sqlDirectory = '/path/to/sql/files'
+
+                    // Run the selected SQL file using sqlplus
+                    sh """
+                        echo "Executing SQL file: ${params.SQL_FILE}"
+                        sqlplus your_username/your_password@your_service_name @${sqlDirectory}/${params.SQL_FILE}
+                    """
+                }
+            }
+        }
+    }
+}
+
+// Function to list SQL files from the directory
+def listSqlFiles() {
+    def sqlDirectory = '/path/to/sql/files'
+    def files = []
+    def cmd = "ls ${sqlDirectory}/*.sql"
+
+    // Execute shell command to list files and return as a list of choices
+    def result = sh(script: cmd, returnStdout: true).trim()
+    files = result.split("\n")
+
+    // Return files list for Jenkins 'choice' parameter
+    return files.collect { it.split('/').last() }
+}
