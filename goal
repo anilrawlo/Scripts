@@ -1,0 +1,19 @@
+Here’s a more detailed version for each category:
+
+1. **Productivity**
+   - **What success looks like**: Achieving smooth and reliable deployment processes with minimal manual intervention. Automating routine tasks like monitoring, backups, and log management to free up time for more strategic work. Optimizing pipelines to speed up both deployments and issue resolutions, contributing to faster delivery cycles.
+   - **Milestone**: Reduce deployment time by 30% within the next 6 months by optimizing Jenkins pipelines and automating repetitive tasks. Implement automated monitoring and alerting scripts for system health checks and issue resolution. Set up an internal knowledge base to minimize time spent on repeat support queries.
+
+2. **Quality**
+   - **What success looks like**: Delivering high-quality, stable releases with minimal rollback or post-deployment issues. Ensuring application uptime and reliability by enhancing monitoring, alerting, and error resolution processes. Ensuring thorough testing and validation are part of every release cycle to catch issues before they reach production.
+   - **Milestone**: Decrease the number of post-deployment incidents by 25% in the next quarter through improved testing and monitoring. Ensure that all production releases pass a rigorous QA process, with fewer than 5% requiring post-release hotfixes. Maintain 99.9% uptime for critical applications over the next quarter.
+
+3. **Initiative**
+   - **What success looks like**: Continuously identifying bottlenecks or inefficiencies in current DevOps and application support processes and implementing solutions to improve them. Being an early adopter of new tools and practices that enhance productivity, such as container orchestration or infrastructure-as-code. Offering suggestions that reduce downtime or improve recovery times after incidents.
+   - **Milestone**: Within the next 3 months, implement at least one new tool (e.g., Kubernetes for container orchestration or Terraform for infrastructure automation) to improve infrastructure management. Identify and address at least two recurring production issues, creating long-term solutions to prevent them from reoccurring.
+
+4. **Core Hygiene**
+   - **What success looks like**: Maintaining well-documented, clean, and scalable infrastructure configurations. Ensuring backups, monitoring, and security protocols are regularly updated and followed rigorously. Making sure systems and applications are consistently updated to the latest stable versions, with detailed documentation for troubleshooting and maintenance.
+   - **Milestone**: Conduct a complete review of all infrastructure-related documentation and ensure it is up to date by the end of the quarter. Automate regular security audits and backups across all environments (production, QA, etc.) and ensure compliance with internal and external standards. Maintain an internal audit of system patches and upgrades on a monthly basis.
+
+These expanded descriptions give more clarity on how success and milestones align with both the DevOps and application support responsibilities.
