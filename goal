@@ -17,3 +17,34 @@ Here’s a more detailed version for each category:
    - **Milestone**: Conduct a complete review of all infrastructure-related documentation and ensure it is up to date by the end of the quarter. Automate regular security audits and backups across all environments (production, QA, etc.) and ensure compliance with internal and external standards. Maintain an internal audit of system patches and upgrades on a monthly basis.
 
 These expanded descriptions give more clarity on how success and milestones align with both the DevOps and application support responsibilities.
+
+
+Here’s how you can frame the **goals** for each of the four points:
+
+1. **Productivity**
+   - **Goal**: Increase deployment efficiency and reduce manual workload through automation. Optimize pipelines to speed up releases and incident response times, ensuring faster resolution of issues.
+
+2. **Quality**
+   - **Goal**: Enhance the stability and reliability of applications through better testing, monitoring, and deployment practices. Reduce incidents in production and ensure high application uptime.
+
+3. **Initiative**
+   - **Goal**: Take proactive steps to introduce new tools, techniques, and processes that improve system performance, deployment workflows, and the overall infrastructure. Consistently contribute to the improvement of the operational environment.
+
+4. **Core Hygiene**
+   - **Goal**: Maintain clean, secure, and well-documented infrastructure configurations, ensuring regular updates, backups, and adherence to security best practices. Streamline system maintenance to avoid unnecessary downtime.
+
+These goals should align with the "what success looks like" and "milestones" mentioned earlier, creating a comprehensive strategy.Here’s how you can frame the **goals** for each of the four points:
+
+1. **Productivity**
+   - **Goal**: Increase deployment efficiency and reduce manual workload through automation. Optimize pipelines to speed up releases and incident response times, ensuring faster resolution of issues.
+
+2. **Quality**
+   - **Goal**: Enhance the stability and reliability of applications through better testing, monitoring, and deployment practices. Reduce incidents in production and ensure high application uptime.
+
+3. **Initiative**
+   - **Goal**: Take proactive steps to introduce new tools, techniques, and processes that improve system performance, deployment workflows, and the overall infrastructure. Consistently contribute to the improvement of the operational environment.
+
+4. **Core Hygiene**
+   - **Goal**: Maintain clean, secure, and well-documented infrastructure configurations, ensuring regular updates, backups, and adherence to security best practices. Streamline system maintenance to avoid unnecessary downtime.
+
+These goals should align with the "what success looks like" and "milestones" mentioned earlier, creating a comprehensive strategy.
