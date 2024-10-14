@@ -28,3 +28,71 @@ pipeline {
         }
     }
 }
+
+
+
+
+----------_-------
+
+pipeline {
+    agent any
+    
+    parameters {
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['int', 'qa', 'stress', 'prod'],
+            description: 'Select the environment for the scripts'
+        )
+    }
+
+    stages {
+        stage('Setup Environment') {
+            steps {
+                script {
+                    // Define environment configurations
+                    def envConfig = [
+                        int: [host: 'int-server', script1: '/path/to/script1.sh', script2: '/path/to/script2.sh'],
+                        qa: [host: 'qa-server', script1: '/path/to/script1.sh', script2: '/path/to/script2.sh'],
+                        stress: [host: 'stress-server', script1: '/path/to/script1.sh', script2: '/path/to/script2.sh'],
+                        prod: [host: 'prod-server', script1: '/path/to/script1.sh', script2: '/path/to/script2.sh']
+                    ]
+
+                    // Set environment details based on user selection
+                    envDetails = envConfig[params.ENVIRONMENT]
+                    echo "Selected environment: ${params.ENVIRONMENT} with host: ${envDetails.host}"
+                }
+            }
+        }
+        
+        stage('Parallel Execution') {
+            parallel {
+                stage('Run Script 1') {
+                    steps {
+                        script {
+                            echo "Running script 1 on ${params.ENVIRONMENT} environment"
+                            sshagent(['your-credentials-id']) {  // Replace with your SSH credential ID
+                                sh "ssh user@${envDetails.host} 'bash ${envDetails.script1} ${params.ENVIRONMENT}'"
+                            }
+                        }
+                    }
+                }
+                stage('Run Script 2') {
+                    steps {
+                        script {
+                            echo "Running script 2 on ${params.ENVIRONMENT} environment"
+                            sshagent(['your-credentials-id']) {  // Replace with your SSH credential ID
+                                sh "ssh user@${envDetails.host} 'bash ${envDetails.script2} ${params.ENVIRONMENT}'"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Finished executing scripts for environment: ${params.ENVIRONMENT}"
+        }
+    }
+}
