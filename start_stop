@@ -1,33 +1,37 @@
 pipeline {
     agent any
-    
+
     parameters {
-        choice(
-            name: 'ACTION',
-            choices: ['start', 'stop'],
-            description: 'Select whether to run the start or stop script'
-        )
+        choice(name: 'ENVIRONMENT', choices: ['dev', 'qa', 'prod'], description: 'Select the environment')
+        choice(name: 'ACTION', choices: ['start', 'stop'], description: 'Select action to execute')
     }
 
     stages {
-        stage('Execute Script') {
+        stage('Execute Selected Script on Server') {
             steps {
                 script {
+                    // Define server details for each environment
+                    def serverDetails = [
+                        dev: [ip: '192.168.1.100', user: 'dev-user'],   // Replace with actual dev server details
+                        qa: [ip: '192.168.1.101', user: 'qa-user'],     // Replace with actual qa server details
+                        prod: [ip: '192.168.1.102', user: 'prod-user']   // Replace with actual prod server details
+                    ]
+
+                    // Get selected environment details
+                    def selectedEnv = serverDetails[params.ENVIRONMENT]
+
+                    // Define the script to execute based on user action
+                    def scriptToRun
                     if (params.ACTION == 'start') {
-                        echo "Running start script"
-                        sh './start.sh'  // Add the path to your start script
+                        scriptToRun = '/path/to/start.sh' // Path for the start script
                     } else if (params.ACTION == 'stop') {
-                        echo "Running stop script"
-                        sh './stop.sh'  // Add the path to your stop script
+                        scriptToRun = '/path/to/stop.sh'  // Path for the stop script
                     }
+
+                    // Execute the selected script on the chosen server
+                    sh "ssh ${selectedEnv.user}@${selectedEnv.ip} 'bash ${scriptToRun}'"
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            echo "Job finished with action: ${params.ACTION}"
         }
     }
 }
