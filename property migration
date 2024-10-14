@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage('Parallel Execution') {
+            parallel {
+                stage('Run Script 1') {
+                    steps {
+                        sh './script1.sh'
+                    }
+                }
+                stage('Run Script 2') {
+                    steps {
+                        sh './script2.sh'
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline finished execution'
+        }
+        success {
+            echo 'Both scripts executed successfully'
+        }
+        failure {
+            echo 'One or more scripts failed'
+        }
+    }
+}
