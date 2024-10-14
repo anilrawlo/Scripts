@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['start', 'stop'],
+            description: 'Select whether to run the start or stop script'
+        )
+    }
+
+    stages {
+        stage('Execute Script') {
+            steps {
+                script {
+                    if (params.ACTION == 'start') {
+                        echo "Running start script"
+                        sh './start.sh'  // Add the path to your start script
+                    } else if (params.ACTION == 'stop') {
+                        echo "Running stop script"
+                        sh './stop.sh'  // Add the path to your stop script
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Job finished with action: ${params.ACTION}"
+        }
+    }
+}
