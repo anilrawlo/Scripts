@@ -5,18 +5,17 @@
   tasks:
     - name: Read the CSV file
       community.general.read_csv:
-        path: "/path/to/your/file.csv"  # Directly specify the CSV file path
-        key: "filename"
+        path: "/path/to/your/file.csv"  # Specify the CSV file path
       register: csv_data
 
     - name: Rollback files
-      loop: "{{ csv_data.list }}"
+      loop: "{{ csv_data.list }}"  # Loop through the list of rows
       vars:
         file_name: "{{ item.filename }}"
         destination_path: "{{ item.destination }}"
         permissions: "{{ item.permission }}"
         original_file_path: "{{ destination_path }}{{ file_name }}"
-        backup_file_path: "/opt/jboss/deployment_backup{{ original_file_path }}"  # Backup directory
+        backup_file_path: "/opt/jboss/deployment_backup{{ original_file_path }}"
       tasks:
         - name: Restore file from backup
           ansible.builtin.copy:
