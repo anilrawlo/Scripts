@@ -1,8 +1,9 @@
 ---
-- name: Rollback all files from CSV (space-separated)
+- name: Rollback files from CSV
   hosts: target_servers
   become: yes
   vars:
+    # Default variables for the rollback operation
     csv_file_path: "/path/to/your/file.csv"  # Path to your CSV file
     backup_base_dir: "/opt/jboss/deployment_backup"  # Base directory for backups
 
@@ -38,3 +39,12 @@
           ansible.builtin.file:
             path: "{{ original_file_path }}"
             mode: "{{ permissions }}"
+            
+  # Role metadata (included directly here instead of a separate meta/main.yml)
+  galaxy_info:
+    author: Your Name
+    description: "Role to rollback files from a CSV file containing file name, destination, and permissions."
+    company: Your Company
+    license: MIT
+
+  dependencies: []
