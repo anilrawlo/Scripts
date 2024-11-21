@@ -1,50 +1,30 @@
 ---
-- name: Rollback files from CSV
+- name: Rollback files on the target servers
   hosts: target_servers
   become: yes
-  vars:
-    # Default variables for the rollback operation
-    csv_file_path: "/path/to/your/file.csv"  # Path to your CSV file
-    backup_base_dir: "/opt/jboss/deployment_backup"  # Base directory for backups
-
   tasks:
     - name: Read the CSV file
       community.general.read_csv:
-        path: "{{ csv_file_path }}"
-        key: "filename"  # Using the 'filename' column to uniquely identify rows
+        path: "/path/to/your/file.csv"  # Directly specify the CSV file path
+        key: "filename"
       register: csv_data
 
     - name: Rollback files
-      loop: "{{ csv_data.list }}"  # Using the 'list' instead of 'dict'
+      loop: "{{ csv_data.list }}"
       vars:
         file_name: "{{ item.filename }}"
         destination_path: "{{ item.destination }}"
         permissions: "{{ item.permission }}"
         original_file_path: "{{ destination_path }}{{ file_name }}"
-        backup_file_path: "{{ backup_base_dir }}{{ original_file_path }}"
+        backup_file_path: "/opt/jboss/deployment_backup{{ original_file_path }}"  # Backup directory
       tasks:
-        - name: Check if backup file exists
-          ansible.builtin.stat:
-            path: "{{ backup_file_path }}"
-          register: backup_status
-
         - name: Restore file from backup
           ansible.builtin.copy:
             src: "{{ backup_file_path }}"
             dest: "{{ original_file_path }}"
             remote_src: yes
-          when: backup_status.stat.exists
 
         - name: Set file permissions
           ansible.builtin.file:
             path: "{{ original_file_path }}"
             mode: "{{ permissions }}"
-            
-  # Role metadata (included directly here instead of a separate meta/main.yml)
-  galaxy_info:
-    author: Your Name
-    description: "Role to rollback files from a CSV file containing file name, destination, and permissions."
-    company: Your Company
-    license: MIT
-
-  dependencies: []
