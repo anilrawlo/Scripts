@@ -1,0 +1,40 @@
+---
+- name: Rollback all files from CSV (space-separated)
+  hosts: target_servers
+  become: yes
+  vars:
+    csv_file_path: "/path/to/your/file.csv"  # Path to your CSV file
+    backup_base_dir: "/opt/jboss/deployment_backup"  # Base directory for backups
+
+  tasks:
+    - name: Read the CSV file
+      community.general.read_csv:
+        path: "{{ csv_file_path }}"
+        key: "filename"  # Using the 'filename' column to uniquely identify rows
+      register: csv_data
+
+    - name: Rollback files
+      loop: "{{ csv_data.list }}"  # Using the 'list' instead of 'dict'
+      vars:
+        file_name: "{{ item.filename }}"
+        destination_path: "{{ item.destination }}"
+        permissions: "{{ item.permission }}"
+        original_file_path: "{{ destination_path }}{{ file_name }}"
+        backup_file_path: "{{ backup_base_dir }}{{ original_file_path }}"
+      tasks:
+        - name: Check if backup file exists
+          ansible.builtin.stat:
+            path: "{{ backup_file_path }}"
+          register: backup_status
+
+        - name: Restore file from backup
+          ansible.builtin.copy:
+            src: "{{ backup_file_path }}"
+            dest: "{{ original_file_path }}"
+            remote_src: yes
+          when: backup_status.stat.exists
+
+        - name: Set file permissions
+          ansible.builtin.file:
+            path: "{{ original_file_path }}"
+            mode: "{{ permissions }}"
