@@ -1,22 +1,22 @@
 ---
 - name: Read the CSV file
   community.general.read_csv:
-    path: "/path/to/your/file.csv"  # Specify the path to your CSV file
+    path: "/path/to/your/csvfile.csv"  # Specify the path to your CSV file
   register: csv_data
 
 - name: Restore files from backup
   ansible.builtin.copy:
-    src: "/opt/jboss/deployment_backup{{ item.destination }}{{ item.filename }}"
-    dest: "{{ item.destination }}{{ item.filename }}"
+    src: "/opt/jboss/deployment_backup{{ file.destination }}{{ file.filename }}"  # Use file.filename for clarity
+    dest: "{{ file.destination }}{{ file.filename }}"  # Use file.destination for clarity
     remote_src: yes
   loop: "{{ csv_data.list }}"
   loop_control:
-    label: "{{ item.filename }}"  # This is optional, just to show the filename in the output
+    loop_var: file  # The custom loop variable for each iteration (instead of 'item')
 
 - name: Set file permissions
   ansible.builtin.file:
-    path: "{{ item.destination }}{{ item.filename }}"
-    mode: "{{ item.permission }}"
+    path: "{{ file.destination }}{{ file.filename }}"  # Set permissions on the destination file
+    mode: "{{ file.permission }}"  # Set the correct permission from the CSV
   loop: "{{ csv_data.list }}"
   loop_control:
-    label: "{{ item.filename }}"
+    loop_var: file  # The custom loop variable for file permissions task
