@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    environment {
+        // Reference the credential ID from Jenkins Global Credentials
+        SSH_CREDENTIALS = credentials('MATLAB_dev')  // MATLAB_dev is the credential ID
+    }
+    triggers {
+        cron('30 19 * * 1-5') // Schedule: Monday to Friday at 7:30 PM
+    }
+    stages {
+        stage('Run Script via SSH') {
+            steps {
+                sshagent(['MATLAB_dev']) {  // Use the MATLAB_dev credentials
+                    sh '''
+                    # Run the script on the remote server via SSH
+                    ssh -o StrictHostKeyChecking=no $USER@$REMOTE_SERVER \
+                    "python3 /opt/matlab/abc.py"
+                    '''
+                }
+            }
+        }
+    }
+}
