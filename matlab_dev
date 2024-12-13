@@ -1,20 +1,20 @@
 pipeline {
     agent any
     environment {
-        // Reference the credential ID from Jenkins Global Credentials
-        SSH_CREDENTIALS = credentials('MATLAB_dev')  // MATLAB_dev is the credential ID
+        REMOTE_SERVER = 'your_remote_server_ip_or_hostname'  // Define your remote server here
+        SCRIPT_PATH = '/opt/matlab/abc.py'  // Path to your script
+        ENV_DIR = '/opt/matlab/env'  // Directory where 'activate' script is located
     }
     triggers {
         cron('30 19 * * 1-5') // Schedule: Monday to Friday at 7:30 PM
     }
     stages {
-        stage('Run Script via SSH') {
+        stage('Run Commands via SSH') {
             steps {
                 sshagent(['MATLAB_dev']) {  // Use the MATLAB_dev credentials
                     sh '''
-                    # Run the script on the remote server via SSH
-                    ssh -o StrictHostKeyChecking=no $USER@$REMOTE_SERVER \
-                    "python3 /opt/matlab/abc.py"
+                    ssh -o StrictHostKeyChecking=no $USER@$REMOTE_SERVER "
+                    cd $ENV_DIR && source activate && python3 $SCRIPT_PATH"
                     '''
                 }
             }
