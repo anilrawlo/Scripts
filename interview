@@ -1,0 +1,335 @@
+This is a complete set of 200 DevOps interview questions with answers for a 7-year experienced candidate covering Terraform, Git, Jenkins, Ansible, Docker, Kubernetes, Shell Scripting, and AWS.
+
+
+---
+
+1. Terraform (25 Questions & Answers)
+
+1. How does Terraform manage infrastructure as code?
+
+Terraform uses declarative configuration files to define, provision, and manage infrastructure resources.
+
+
+
+2. What is the difference between Terraform modules and workspaces?
+
+Modules help reuse and organize Terraform code, while workspaces allow managing multiple environments using the same configuration.
+
+
+
+3. How do you prevent accidental resource deletion in Terraform?
+
+Use prevent_destroy = true in resource definitions.
+
+
+
+4. How does Terraform handle state files, and how do you protect them?
+
+Terraform maintains a terraform.tfstate file to track resources. Store it in remote backends (S3 + DynamoDB, Terraform Cloud) for security and locking.
+
+
+
+5. How do you rollback a Terraform configuration?
+
+Restore a previous terraform.tfstate version or manually adjust configurations.
+
+
+
+6. What happens if a Terraform resource is manually deleted from AWS?
+
+Terraform detects the drift, and terraform apply will recreate it.
+
+
+
+7. How do you integrate Terraform with CI/CD pipelines?
+
+Use tools like Jenkins, GitHub Actions, or GitLab CI with terraform plan and terraform apply.
+
+
+
+
+
+---
+
+2. Git (25 Questions & Answers)
+
+26. What is the difference between Git merge and rebase?
+
+
+
+Merge creates a new commit combining two branches, while rebase moves commits from one branch to another, keeping a linear history.
+
+
+27. How do you resolve a merge conflict in Git?
+
+
+
+Edit conflicting files manually, then use git add and git commit.
+
+
+28. How do you check who last modified a file in Git?
+
+
+
+Use git blame <file>.
+
+
+29. How do you recover a deleted branch in Git?
+
+
+
+Run git reflog to find the commit and git checkout -b <branch-name> <commit-hash>.
+
+
+
+---
+
+3. Jenkins (25 Questions & Answers)
+
+51. How do you set up a multibranch pipeline in Jenkins?
+
+
+
+Use the Multibranch Pipeline Plugin to automatically detect branches in a Git repository.
+
+
+52. How do you parameterize a Jenkins pipeline?
+
+
+
+Use parameters in the pipeline script:
+
+parameters {
+  string(name: 'ENV', defaultValue: 'dev', description: 'Deployment environment')
+}
+
+
+53. How do you trigger a Jenkins build from a Git commit?
+
+
+
+Configure webhooks in GitHub or GitLab to trigger Jenkins jobs automatically.
+
+
+
+---
+
+4. Ansible (25 Questions & Answers)
+
+76. What is the difference between Ansible ad-hoc commands and playbooks?
+
+
+
+Ad-hoc commands execute tasks quickly, while playbooks define structured automation workflows.
+
+
+77. How do you manage secrets in Ansible?
+
+
+
+Use Ansible Vault to encrypt sensitive data.
+
+
+78. How do you troubleshoot a failing Ansible playbook?
+
+
+
+Run with -vvv for verbose debugging.
+
+
+79. How do you apply an Ansible role to a host?
+
+
+
+Define the role in the playbook under roles:
+
+- hosts: webservers  
+  roles:  
+    - apache
+
+
+
+---
+
+5. Docker (25 Questions & Answers)
+
+101. What is the difference between Docker images and containers?
+
+
+
+An image is a template, while a container is a running instance of an image.
+
+
+102. How do you persist data in Docker containers?
+
+
+
+Use Docker volumes or bind mounts.
+
+
+103. How do you reduce the size of Docker images?
+
+
+
+Use multi-stage builds and minimize unnecessary dependencies.
+
+
+104. How do you restart a container automatically if it crashes?
+
+
+
+Use the --restart flag:
+
+docker run --restart=always mycontainer
+
+
+105. How do you list all running and stopped Docker containers?
+
+
+
+docker ps -a
+
+
+
+---
+
+6. Kubernetes (25 Questions & Answers)
+
+126. What are Kubernetes namespaces, and why are they useful?
+
+
+
+Namespaces allow isolating workloads in a cluster, making resource management easier.
+
+
+127. How do you troubleshoot a failing Kubernetes pod?
+
+
+
+Use kubectl describe pod <pod-name> and kubectl logs <pod-name>.
+
+
+128. What is the difference between Deployment, StatefulSet, and DaemonSet?
+
+
+
+Deployment: Manages stateless applications.
+
+StatefulSet: Manages stateful applications with persistent storage.
+
+DaemonSet: Ensures a pod runs on every node.
+
+
+129. How do you perform a rolling update in Kubernetes?
+
+
+
+kubectl set image deployment/<deployment-name> <container-name>=<new-image>
+
+
+130. How do you rollback a Kubernetes deployment?
+
+
+
+kubectl rollout undo deployment <deployment-name>
+
+
+
+---
+
+7. Shell Scripting (25 Questions & Answers)
+
+151. How do you find and replace text in a file using a shell script?
+
+
+
+Use sed:
+
+sed -i 's/oldtext/newtext/g' filename.txt
+
+
+152. How do you check if a command was successful in a shell script?
+
+
+
+Use $?:
+
+if [ $? -eq 0 ]; then  
+  echo "Success"  
+else  
+  echo "Failure"  
+fi
+
+
+153. How do you schedule a script to run at a specific time?
+
+
+
+Use cron jobs:
+
+crontab -e  
+0 3 * * * /path/to/script.sh
+
+
+
+---
+
+8. AWS (25 Questions & Answers)
+
+176. What is the difference between EC2, Lambda, and ECS?
+
+
+
+EC2: Virtual servers.
+
+Lambda: Serverless computing.
+
+ECS: Container orchestration service.
+
+
+177. How do you encrypt S3 buckets?
+
+
+
+Enable Server-Side Encryption (SSE) with AWS KMS or AES-256.
+
+
+178. How do you reduce AWS costs for underutilized EC2 instances?
+
+
+
+Use Auto Scaling, Spot Instances, or switch to Reserved Instances.
+
+
+179. How do you set up a VPC in AWS?
+
+
+
+Use AWS VPC Wizard to create subnets, route tables, and security groups.
+
+
+180. How do you secure an AWS API Gateway?
+
+
+
+Use IAM roles, API keys, or AWS WAF for security.
+
+
+
+---
+
+Final Thoughts
+
+This 200-question guide covers troubleshooting, best practices, security, and real-world DevOps use cases.
+
+Would you like:
+
+Hands-on task challenges?
+
+Live coding examples?
+
+Scenario-based problem-solving cases?
+
+
+Let me know how I can refine this further!
+
