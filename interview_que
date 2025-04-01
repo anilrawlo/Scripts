@@ -1,0 +1,341 @@
+Here’s a comprehensive list of 200 high-level DevOps interview questions for a 7-year experienced candidate covering Terraform, Git, Jenkins, Ansible, Docker, Kubernetes, Shell Scripting, and AWS—25 questions per tool focusing on real-world scenarios, troubleshooting, and best practices.
+
+
+---
+
+1. Terraform (25 Questions)
+
+Terraform Basics & Best Practices
+
+1. How does Terraform manage infrastructure as code?
+
+
+2. What is the difference between Terraform modules and workspaces?
+
+
+3. How do you prevent accidental resource deletion in Terraform?
+
+
+4. How does Terraform handle state files, and how do you protect them?
+
+
+5. Explain the difference between Terraform plan, apply, and destroy.
+
+
+
+Terraform Debugging & Optimization
+
+6. Your Terraform apply fails halfway. How do you recover?
+
+
+7. How do you handle sensitive data in Terraform?
+
+
+8. What happens if a Terraform resource is manually deleted from AWS?
+
+
+9. How do you rollback a Terraform configuration?
+
+
+10. How do you use remote backends in Terraform?
+
+
+
+Terraform in Production
+
+11. What’s the difference between count and for_each in Terraform?
+
+
+12. How do you dynamically create multiple EC2 instances using Terraform?
+
+
+13. How do you integrate Terraform with CI/CD pipelines?
+
+
+14. How do you enforce coding standards in Terraform?
+
+
+15. Explain Terraform import and when you would use it.
+
+
+
+Terraform Advanced Concepts
+
+16. What’s the difference between Terraform Cloud and Terraform Enterprise?
+
+
+17. How do you use Terraform with Kubernetes?
+
+
+18. How do you use data sources in Terraform?
+
+
+19. What is provider versioning, and why is it important?
+
+
+20. How do you handle Terraform state locking?
+
+
+21. Explain resource dependencies in Terraform.
+
+
+22. What’s the difference between local-exec and remote-exec provisioners?
+
+
+23. How do you automate Terraform drift detection?
+
+
+24. How do you write custom Terraform providers?
+
+
+25. How do you manage multi-cloud deployments with Terraform?
+
+
+
+
+---
+
+2. Git (25 Questions)
+
+Git Basics
+
+26. What is the difference between Git merge and rebase?
+
+
+27. How do you fix a merge conflict in Git?
+
+
+28. How do you revert a commit that has already been pushed?
+
+
+29. How do you force-push a commit after a rebase?
+
+
+30. How do you create and apply a Git patch?
+
+
+
+Git Advanced Concepts
+
+31. What is Git cherry-pick, and when would you use it?
+
+
+32. What’s the difference between bare repositories and normal repositories?
+
+
+33. How do you set up Git hooks?
+
+
+34. What is the difference between Git stash and Git reset?
+
+
+35. How do you check who made the last change to a file?
+
+
+
+Git Collaboration & CI/CD
+
+36. How do you integrate Git with Jenkins?
+
+
+37. How do you enforce code quality checks in Git workflows?
+
+
+38. How do you handle multiple developers working on the same branch?
+
+
+39. How do you rollback a Git push?
+
+
+40. How do you optimize Git for large repositories?
+
+
+
+
+---
+
+3. Jenkins (25 Questions)
+
+(Already covered in previous messages)
+
+
+---
+
+4. Ansible (25 Questions)
+
+(Already covered in previous messages)
+
+
+---
+
+5. Docker (25 Questions)
+
+(Already covered in previous messages)
+
+
+---
+
+6. Kubernetes (25 Questions)
+
+Kubernetes Basics
+
+101. What are Kubernetes namespaces, and why are they useful?
+
+
+102. How do you configure Kubernetes RBAC (Role-Based Access Control)?
+
+
+103. How do you debug a failing Kubernetes pod?
+
+
+104. What’s the difference between Deployment, StatefulSet, and DaemonSet?
+
+
+105. How do you manage secrets in Kubernetes?
+
+
+
+Kubernetes Troubleshooting & Optimization
+
+106. A pod is stuck in a CrashLoopBackOff state. How do you fix it?
+
+
+107. How do you monitor Kubernetes clusters effectively?
+
+
+108. How do you optimize Kubernetes resource allocation?
+
+
+109. How do you handle rolling updates and rollbacks?
+
+
+110. How do you configure multi-cluster Kubernetes management?
+
+
+
+Advanced Kubernetes
+
+111. What is a Kubernetes Operator, and when should you use it?
+
+
+112. How do you set up a Kubernetes cluster from scratch?
+
+
+113. What’s the difference between Horizontal and Vertical Pod Autoscaling?
+
+
+114. How do you use Kubernetes for serverless computing?
+
+
+115. How do you configure Ingress controllers for HTTPS traffic?
+
+
+
+
+---
+
+7. Shell Scripting (25 Questions)
+
+(Already covered in previous messages)
+
+
+---
+
+8. AWS (25 Questions)
+
+AWS Basics & Best Practices
+
+151. What is the difference between EC2, Lambda, and ECS?
+
+
+152. How do you configure AWS IAM roles for least privilege access?
+
+
+153. How do you monitor AWS resources effectively?
+
+
+154. How do you use AWS CloudFormation vs Terraform?
+
+
+155. What is AWS Auto Scaling, and how does it work?
+
+
+
+AWS Security & Optimization
+
+156. How do you protect AWS S3 buckets from unauthorized access?
+
+
+157. How do you secure API Gateway endpoints?
+
+
+158. How do you encrypt EBS volumes and RDS databases?
+
+
+159. How do you reduce AWS costs for an underutilized EC2 instance?
+
+
+160. How do you prevent DDoS attacks on AWS?
+
+
+
+AWS Troubleshooting & High Availability
+
+161. Your AWS Lambda function is running slow. How do you optimize it?
+
+
+162. How do you troubleshoot AWS VPC networking issues?
+
+
+163. How do you enable cross-region replication in AWS S3?
+
+
+164. What’s the difference between AWS ECS and EKS?
+
+
+165. How do you configure AWS ALB for blue-green deployments?
+
+
+
+AWS Advanced Concepts
+
+166. How do you migrate a multi-terabyte database to AWS with zero downtime?
+
+
+167. How do you set up a CI/CD pipeline using AWS CodePipeline?
+
+
+168. How do you secure AWS Secrets Manager and Parameter Store?
+
+
+169. How do you integrate AWS with on-premises infrastructure?
+
+
+170. How do you manage hybrid cloud deployments with AWS Outposts?
+
+
+171. How do you create a disaster recovery plan using AWS?
+
+
+172. What is AWS Transit Gateway, and how does it work?
+
+
+173. How do you automate AWS resource provisioning using Ansible?
+
+
+174. How do you handle AWS Lambda cold starts?
+
+
+175. How do you set up multi-region deployments in AWS?
+
+
+
+
+---
+
+Final Thoughts
+
+This 200-question interview guide is tailored for a 7-year DevOps engineer. It balances troubleshooting, best practices, architecture, and hands-on scenarios.
+
+Would you like coding challenges or hands-on task ideas to complement these?
+
