@@ -1,341 +1,151 @@
-Here’s a comprehensive list of 200 high-level DevOps interview questions for a 7-year experienced candidate covering Terraform, Git, Jenkins, Ansible, Docker, Kubernetes, Shell Scripting, and AWS—25 questions per tool focusing on real-world scenarios, troubleshooting, and best practices.
+Here are 10 advanced troubleshooting questions for each tool that can be used in an interview setting. These questions focus on real-world issues, debugging, and best practices.
 
 
 ---
 
-1. Terraform (25 Questions)
+Jenkins (Advanced Interview Questions)
 
-Terraform Basics & Best Practices
-
-1. How does Terraform manage infrastructure as code?
+1. How would you troubleshoot a Jenkins pipeline that suddenly stops executing at a specific stage without any error logs?
 
 
-2. What is the difference between Terraform modules and workspaces?
+2. How do you analyze and resolve performance issues in a Jenkins instance with a high number of concurrent builds?
 
 
-3. How do you prevent accidental resource deletion in Terraform?
+3. If a Jenkins job fails due to a missing dependency, but the dependency exists on the agent, how would you debug the issue?
 
 
-4. How does Terraform handle state files, and how do you protect them?
+4. How would you troubleshoot a Jenkins agent that is connected but unable to execute jobs?
 
 
-5. Explain the difference between Terraform plan, apply, and destroy.
+5. What steps would you take if Jenkins builds are failing due to a misconfigured environment variable in a shared pipeline?
 
 
-
-Terraform Debugging & Optimization
-
-6. Your Terraform apply fails halfway. How do you recover?
+6. How do you handle job failures caused by unstable plugins or plugin version mismatches?
 
 
-7. How do you handle sensitive data in Terraform?
+7. Jenkins webhooks are not triggering jobs from Bitbucket/GitHub—how would you debug and fix this?
 
 
-8. What happens if a Terraform resource is manually deleted from AWS?
+8. How would you resolve an issue where Jenkins builds are stuck in the queue but no agents are picking them up?
 
 
-9. How do you rollback a Terraform configuration?
+9. What troubleshooting steps would you follow if Jenkins jobs suddenly take longer to execute than usual?
 
 
-10. How do you use remote backends in Terraform?
-
-
-
-Terraform in Production
-
-11. What’s the difference between count and for_each in Terraform?
-
-
-12. How do you dynamically create multiple EC2 instances using Terraform?
-
-
-13. How do you integrate Terraform with CI/CD pipelines?
-
-
-14. How do you enforce coding standards in Terraform?
-
-
-15. Explain Terraform import and when you would use it.
-
-
-
-Terraform Advanced Concepts
-
-16. What’s the difference between Terraform Cloud and Terraform Enterprise?
-
-
-17. How do you use Terraform with Kubernetes?
-
-
-18. How do you use data sources in Terraform?
-
-
-19. What is provider versioning, and why is it important?
-
-
-20. How do you handle Terraform state locking?
-
-
-21. Explain resource dependencies in Terraform.
-
-
-22. What’s the difference between local-exec and remote-exec provisioners?
-
-
-23. How do you automate Terraform drift detection?
-
-
-24. How do you write custom Terraform providers?
-
-
-25. How do you manage multi-cloud deployments with Terraform?
+10. How do you diagnose and fix issues related to Jenkins running in a containerized environment (Docker or Kubernetes)?
 
 
 
 
 ---
 
-2. Git (25 Questions)
+Ansible (Advanced Interview Questions)
 
-Git Basics
-
-26. What is the difference between Git merge and rebase?
+1. How would you debug an Ansible playbook that runs successfully but doesn’t apply the expected changes?
 
 
-27. How do you fix a merge conflict in Git?
+2. An Ansible task is failing intermittently across different hosts—how would you investigate and fix this?
 
 
-28. How do you revert a commit that has already been pushed?
+3. How do you resolve an SSH authentication issue where Ansible can connect manually to a server but fails when running a playbook?
 
 
-29. How do you force-push a commit after a rebase?
+4. What are the potential causes of an Ansible playbook running slowly, and how would you optimize it?
 
 
-30. How do you create and apply a Git patch?
+5. How do you troubleshoot an issue where dynamic inventory scripts return incorrect or missing hosts?
 
 
-
-Git Advanced Concepts
-
-31. What is Git cherry-pick, and when would you use it?
+6. How do you debug an issue where Ansible roles are not being applied in the expected order?
 
 
-32. What’s the difference between bare repositories and normal repositories?
+7. Ansible Vault decryption is failing in an automated pipeline—how do you diagnose the issue?
 
 
-33. How do you set up Git hooks?
+8. A task that should be idempotent keeps changing on every Ansible run—how do you fix this?
 
 
-34. What is the difference between Git stash and Git reset?
+9. How would you troubleshoot an Ansible execution failure caused by a missing Python module on remote hosts?
 
 
-35. How do you check who made the last change to a file?
-
-
-
-Git Collaboration & CI/CD
-
-36. How do you integrate Git with Jenkins?
-
-
-37. How do you enforce code quality checks in Git workflows?
-
-
-38. How do you handle multiple developers working on the same branch?
-
-
-39. How do you rollback a Git push?
-
-
-40. How do you optimize Git for large repositories?
+10. What steps would you take to debug and resolve a situation where Ansible is unable to execute a shell script on remote servers?
 
 
 
 
 ---
 
-3. Jenkins (25 Questions)
+Docker (Advanced Interview Questions)
 
-(Already covered in previous messages)
-
-
----
-
-4. Ansible (25 Questions)
-
-(Already covered in previous messages)
+1. A container exits immediately after starting—how would you troubleshoot the issue?
 
 
----
-
-5. Docker (25 Questions)
-
-(Already covered in previous messages)
+2. How would you resolve a "No space left on device" error in a Docker environment?
 
 
----
-
-6. Kubernetes (25 Questions)
-
-Kubernetes Basics
-
-101. What are Kubernetes namespaces, and why are they useful?
+3. How do you troubleshoot and fix a Docker network issue where containers cannot communicate with each other?
 
 
-102. How do you configure Kubernetes RBAC (Role-Based Access Control)?
+4. A containerized application is running slower than expected—how would you identify the bottleneck?
 
 
-103. How do you debug a failing Kubernetes pod?
+5. How would you troubleshoot a situation where Docker fails to pull images from a private registry?
 
 
-104. What’s the difference between Deployment, StatefulSet, and DaemonSet?
+6. How do you debug a containerized application that works locally but fails in a production environment?
 
 
-105. How do you manage secrets in Kubernetes?
+7. What are the possible reasons for a "Docker build" failing due to a permissions error?
 
 
-
-Kubernetes Troubleshooting & Optimization
-
-106. A pod is stuck in a CrashLoopBackOff state. How do you fix it?
+8. A container is running out of memory and being killed—how do you diagnose and prevent this?
 
 
-107. How do you monitor Kubernetes clusters effectively?
+9. How do you resolve file permission issues between a host and a Docker container using bind mounts?
 
 
-108. How do you optimize Kubernetes resource allocation?
-
-
-109. How do you handle rolling updates and rollbacks?
-
-
-110. How do you configure multi-cluster Kubernetes management?
-
-
-
-Advanced Kubernetes
-
-111. What is a Kubernetes Operator, and when should you use it?
-
-
-112. How do you set up a Kubernetes cluster from scratch?
-
-
-113. What’s the difference between Horizontal and Vertical Pod Autoscaling?
-
-
-114. How do you use Kubernetes for serverless computing?
-
-
-115. How do you configure Ingress controllers for HTTPS traffic?
+10. What are the potential causes of Docker containers consuming high CPU, and how do you fix it?
 
 
 
 
 ---
 
-7. Shell Scripting (25 Questions)
+Kubernetes (Advanced Interview Questions)
 
-(Already covered in previous messages)
-
-
----
-
-8. AWS (25 Questions)
-
-AWS Basics & Best Practices
-
-151. What is the difference between EC2, Lambda, and ECS?
+1. A pod is stuck in Pending state—how would you troubleshoot and fix this?
 
 
-152. How do you configure AWS IAM roles for least privilege access?
+2. How do you diagnose a pod stuck in CrashLoopBackOff state?
 
 
-153. How do you monitor AWS resources effectively?
+3. A Kubernetes service is not routing traffic correctly—how would you debug and fix it?
 
 
-154. How do you use AWS CloudFormation vs Terraform?
+4. How do you troubleshoot networking issues between two pods in different namespaces?
 
 
-155. What is AWS Auto Scaling, and how does it work?
+5. A deployment was updated, but new pods are not being created—what steps would you take to debug this?
 
 
-
-AWS Security & Optimization
-
-156. How do you protect AWS S3 buckets from unauthorized access?
+6. How would you debug an issue where persistent volume claims (PVCs) are not getting bound to persistent volumes (PVs)?
 
 
-157. How do you secure API Gateway endpoints?
+7. How do you diagnose and fix an issue where an Ingress controller is not routing external traffic?
 
 
-158. How do you encrypt EBS volumes and RDS databases?
+8. A Kubernetes cluster is experiencing slow API response times—how would you troubleshoot the issue?
 
 
-159. How do you reduce AWS costs for an underutilized EC2 instance?
+9. How do you debug and fix a failing Kubernetes readiness or liveness probe?
 
 
-160. How do you prevent DDoS attacks on AWS?
-
-
-
-AWS Troubleshooting & High Availability
-
-161. Your AWS Lambda function is running slow. How do you optimize it?
-
-
-162. How do you troubleshoot AWS VPC networking issues?
-
-
-163. How do you enable cross-region replication in AWS S3?
-
-
-164. What’s the difference between AWS ECS and EKS?
-
-
-165. How do you configure AWS ALB for blue-green deployments?
-
-
-
-AWS Advanced Concepts
-
-166. How do you migrate a multi-terabyte database to AWS with zero downtime?
-
-
-167. How do you set up a CI/CD pipeline using AWS CodePipeline?
-
-
-168. How do you secure AWS Secrets Manager and Parameter Store?
-
-
-169. How do you integrate AWS with on-premises infrastructure?
-
-
-170. How do you manage hybrid cloud deployments with AWS Outposts?
-
-
-171. How do you create a disaster recovery plan using AWS?
-
-
-172. What is AWS Transit Gateway, and how does it work?
-
-
-173. How do you automate AWS resource provisioning using Ansible?
-
-
-174. How do you handle AWS Lambda cold starts?
-
-
-175. How do you set up multi-region deployments in AWS?
+10. A pod can communicate with other pods but cannot reach external services—how do you diagnose and resolve this?
 
 
 
 
 ---
 
-Final Thoughts
-
-This 200-question interview guide is tailored for a 7-year DevOps engineer. It balances troubleshooting, best practices, architecture, and hands-on scenarios.
-
-Would you like coding challenges or hands-on task ideas to complement these?
+These questions focus on real-world issues you might encounter in CI/CD pipelines, automation, and container orchestration. If you need detailed answers or explanations, let me know!
 
