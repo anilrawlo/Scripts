@@ -1,0 +1,259 @@
+Here’s a new set of advanced troubleshooting questions for a 7+ years experienced engineer, covering Jenkins, Ansible, Docker, Kubernetes, AWS, Git, Linux, and PagerDuty. These focus on real-world scenarios that require deep technical expertise.
+
+
+---
+
+Jenkins (Advanced Troubleshooting Questions)
+
+1. A Jenkins pipeline is failing intermittently at different stages without clear errors. How do you investigate the issue?
+
+
+2. Jenkins jobs are taking significantly longer to execute than before. What steps would you take to optimize them?
+
+
+3. A Jenkins shared library update is not reflecting in downstream jobs. How would you debug this?
+
+
+4. Jenkins is consuming excessive memory and crashing frequently. How do you diagnose and fix this?
+
+
+5. How do you troubleshoot a situation where Jenkins builds are being queued but not starting?
+
+
+6. A new Jenkins agent is unable to connect to the master. How do you debug this?
+
+
+7. How do you secure Jenkins pipelines from credential leaks and unauthorized access?
+
+
+8. How do you diagnose a scenario where a pipeline works in one branch but fails in another?
+
+
+9. A job is failing due to dependency version conflicts in the build environment. How do you resolve this?
+
+
+10. You notice a high number of "stuck" or "orphaned" builds in Jenkins. What could be causing this, and how do you fix it?
+
+
+
+
+---
+
+Ansible (Advanced Troubleshooting Questions)
+
+1. Ansible playbooks are running successfully but not applying the expected configuration changes. How do you debug this?
+
+
+2. A long-running Ansible playbook is failing midway without any error messages. How do you investigate the issue?
+
+
+3. Ansible tasks are running extremely slow on certain hosts. How would you diagnose and fix this?
+
+
+4. Ansible Vault decryption is failing randomly in different environments. How would you troubleshoot this?
+
+
+5. How do you handle an Ansible role that works on some hosts but fails on others with "undefined variable" errors?
+
+
+6. Ansible is failing to execute a command due to an SSH timeout. How do you resolve this?
+
+
+7. You need to debug an intermittent issue with Ansible dynamic inventory. What steps do you take?
+
+
+8. A playbook is failing with a "Permission Denied" error despite using become: true. How do you fix this?
+
+
+9. How do you troubleshoot Ansible idempotency issues where changes are applied repeatedly?
+
+
+10. You need to debug an Ansible execution failure in an air-gapped environment. How do you proceed?
+
+
+
+
+---
+
+Docker (Advanced Troubleshooting Questions)
+
+1. A Docker container starts and exits immediately. How do you debug and fix this?
+
+
+2. Docker images are taking up too much disk space. How do you clean up unused layers without affecting running containers?
+
+
+3. A container is running out of memory and getting killed by the OOM (Out Of Memory) Killer. How do you resolve this?
+
+
+4. Your multi-container application is experiencing network issues between services. How do you debug this?
+
+
+5. How do you troubleshoot a situation where a containerized app works locally but fails in production?
+
+
+6. A private Docker registry is rejecting authentication requests. What steps do you take to debug this?
+
+
+7. A multi-stage Docker build is failing due to missing dependencies. How do you resolve this?
+
+
+8. A Docker container is experiencing high CPU usage. How do you analyze and optimize it?
+
+
+9. How do you handle Docker daemon crashes or failures on a production server?
+
+
+10. A containerized app has slow startup times. How would you investigate and fix the issue?
+
+
+
+
+---
+
+Kubernetes (Advanced Troubleshooting Questions)
+
+1. A pod is stuck in "ContainerCreating" state. How do you diagnose and fix this?
+
+
+2. How do you troubleshoot an issue where a Kubernetes service is not exposing a pod properly?
+
+
+3. A Kubernetes node is in "NotReady" state. What steps do you take to debug the issue?
+
+
+4. How do you resolve a scenario where a Kubernetes deployment continuously restarts due to a failed readiness probe?
+
+
+5. A cluster is experiencing high latency and slow pod scheduling. What do you check first?
+
+
+6. Persistent Volumes are failing to attach to a pod. How would you investigate this?
+
+
+7. Ingress traffic is being blocked randomly. How do you debug this networking issue?
+
+
+8. A Kubernetes secret is not being mounted correctly in a pod. How do you troubleshoot this?
+
+
+9. How do you diagnose and fix high API server latencies in a Kubernetes cluster?
+
+
+10. A Kubernetes Horizontal Pod Autoscaler (HPA) is not scaling up pods as expected. What do you check?
+
+
+
+
+---
+
+AWS (Advanced Troubleshooting Questions)
+
+1. An EC2 instance is running but cannot connect to the internet. How do you debug this?
+
+
+2. An S3 bucket is reporting "Access Denied" even with proper IAM permissions. How do you resolve this?
+
+
+3. A Lambda function is exceeding execution time limits. How do you optimize and troubleshoot it?
+
+
+4. An RDS database is experiencing performance issues. How do you diagnose and improve it?
+
+
+5. CloudFront is serving outdated content even after cache invalidation. What do you check?
+
+
+6. A VPC peering connection is set up, but traffic is not flowing. How do you debug this?
+
+
+7. An AWS Load Balancer is reporting high 5xx errors. How do you investigate and resolve this?
+
+
+8. An Auto Scaling group is not launching new instances despite high load. How do you fix this?
+
+
+9. You need to analyze unexpected AWS billing spikes. How do you approach this?
+
+
+10. An IAM policy change has inadvertently locked out all users. How do you recover access?
+
+
+
+
+---
+
+Git (Advanced Troubleshooting Questions)
+
+1. A merge conflict occurs in a CI/CD pipeline. How do you debug and resolve it?
+
+
+2. A developer accidentally force-pushed a broken commit to main. How do you recover?
+
+
+3. A .gitignore rule is not working. How do you debug and fix this?
+
+
+4. A Git repository has become too large and slow. How do you optimize it?
+
+
+5. A Git submodule is not updating correctly. How do you troubleshoot this?
+
+
+6. An unexpected file deletion occurred after a git pull. How do you recover the lost changes?
+
+
+7. A repository is rejecting git push due to large file restrictions. How do you fix this?
+
+
+8. A developer is stuck in a detached HEAD state. How do you help them recover?
+
+
+9. Git tags are missing after a repository migration. How do you restore them?
+
+
+10. A team needs to remove sensitive data from Git history. How do you proceed?
+
+
+
+
+---
+
+PagerDuty (Advanced Troubleshooting Questions)
+
+1. A high-priority PagerDuty alert was not sent to the on-call engineer. How do you debug this?
+
+
+2. An escalation policy is skipping the next person in the rotation. How do you fix this?
+
+
+3. A webhook integration with PagerDuty is failing to deliver incident updates. How do you investigate?
+
+
+4. You are receiving duplicate alerts from PagerDuty for the same issue. What do you check?
+
+
+5. PagerDuty incidents are not auto-resolving when the underlying issue is fixed. How do you troubleshoot this?
+
+
+6. A scheduled maintenance window is not suppressing alerts as expected. How do you debug this?
+
+
+7. A PagerDuty API request is failing due to rate limiting. How do you optimize API usage?
+
+
+8. A new service integration with Datadog is not triggering incidents in PagerDuty. How do you fix this?
+
+
+9. A PagerDuty user is not receiving SMS or call notifications. How do you resolve this?
+
+
+10. How do you automate PagerDuty incident response using AWS Lambda or another scripting tool?
+
+
+
+
+---
+
+Would you like detailed answers or real-world troubleshooting case studies for any of these?
+
